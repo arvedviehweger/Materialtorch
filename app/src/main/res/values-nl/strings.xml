@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Materialfakkel</string>
+    <string name="no_flash">Geen zaklamp!</string>
+    <string name="lo">Schakel licht aan!</string>
+    <string name="light_on">Licht aangeschakeld!</string>
+    <string name="light_off">Licht uitgeschakeld!</string>
+
+</resources>

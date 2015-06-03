@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Materialtaschenlampe</string>
+    <string name="no_flash">Keine Foto-LED!</string>
+    <string name="lo">Licht einschalten!</string>
+    <string name="light_on">Licht eingeschaltet!</string>
+    <string name="light_off">Licht ausgeschaltet!</string>
+
+</resources>

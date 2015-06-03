@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".MainActivity"
+    android:weightSum="1"
+    android:background="@drawable/background"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lo"
+        android:id="@+id/textView2"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:paddingLeft="30dp"
+        android:layout_marginTop="20dp" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:id="@+id/switch1"
+        android:textOn="ON"
+        android:textOff="OFF"
+        android:gravity="right"
+        android:layout_weight="0.31"
+        app:showText="false"
+        android:checked="false"
+        android:layout_below="@id/textView2"
+        android:layout_marginTop="10dp" />
+
+
+</LinearLayout>
