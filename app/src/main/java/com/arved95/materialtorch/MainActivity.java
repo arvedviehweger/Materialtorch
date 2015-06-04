@@ -17,7 +17,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.hardware.Camera.Parameters;
+
 import static com.arved95.materialtorch.R.id.switch1;
+
 import android.support.v7.widget.SwitchCompat;
 import android.app.NotificationManager;
 import android.app.Notification.Builder;
@@ -28,13 +30,13 @@ public class MainActivity extends ActionBarActivity {
 
     SwitchCompat s1;
 
-    Camera cam;
+    private Camera camera;
     Parameters param;
     boolean lichtan;
     public Notification.Builder notif;
     public NotificationManager nm1;
-
     public Intent i1;
+    private boolean isFlashlightOn;
     public PendingIntent pi1;
 
     @Override
@@ -56,37 +58,23 @@ public class MainActivity extends ActionBarActivity {
 
                     if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
 
-                        if (cam == null) {
+                        if (camera == null) {
 
-                            cam = Camera.open();
+                            camera = Camera.open();
                         }
 
 
-                        param = cam.getParameters();
+                        param = camera.getParameters();
                         param.setFlashMode(Parameters.FLASH_MODE_TORCH);
-                        cam.setParameters(param);
-                        cam.startPreview();
+                        camera.setParameters(param);
+                        camera.startPreview();
 
                         lichtan = true;
 
                         Toast.makeText(getApplicationContext(), R.string.light_on, Toast.LENGTH_SHORT).show();
 
 
-
-
-
-                    }
-
-
-
-
-
-
-
-
-
-
-                     else {
+                    } else {
 
                         Toast.makeText(getApplicationContext(), R.string.no_flash, Toast.LENGTH_SHORT).show();
                     }
@@ -116,14 +104,14 @@ public class MainActivity extends ActionBarActivity {
 
         if (lichtan == false) {
 
-            cam = Camera.open();
+            camera = Camera.open();
         }
 
 
-        param = cam.getParameters();
+        param = camera.getParameters();
         param.setFlashMode(Parameters.FLASH_MODE_OFF);
-        cam.setParameters(param);
-        cam.stopPreview();
+        camera.setParameters(param);
+        camera.stopPreview();
 
         lichtan = false;
 
@@ -137,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
         if (lichtan == true) {
             lichtaus();
 
-            cam.release();
+            camera.release();
 
         }
         super.onPause();
