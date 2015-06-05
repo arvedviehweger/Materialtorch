@@ -4,5 +4,8 @@
     <string name="lo">Schakel licht aan!</string>
     <string name="light_on">Licht aangeschakeld!</string>
     <string name="light_off">Licht uitgeschakeld!</string>
+    <string name="light_turn_off">Zet licht uit!</string>
+    <string name="camera_flash">Camera licht is niet bruikbar!</string>
+
 
 </resources>

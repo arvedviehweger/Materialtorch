@@ -1,150 +1,97 @@
 package com.arved95.materialtorch;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.hardware.Camera.Parameters;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import static com.arved95.materialtorch.R.id.switch1;
-
-import android.support.v7.widget.SwitchCompat;
-import android.app.NotificationManager;
-import android.app.Notification.Builder;
-import android.app.Notification;
-import android.app.PendingIntent;
 
 public class MainActivity extends ActionBarActivity {
 
-    SwitchCompat s1;
-
     private Camera camera;
-    Parameters param;
-    boolean lichtan;
-    public Notification.Builder notif;
-    public NotificationManager nm1;
-    public Intent i1;
+    ImageButton flashlightSwitchImg;
     private boolean isFlashlightOn;
-    public PendingIntent pi1;
+    Parameters params;
+    TextView textViewbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        notif = new Notification.Builder(this);
-        nm1 = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        flashlightSwitchImg = (ImageButton) findViewById(R.id.imageButton);
+        textViewbutton = (TextView) findViewById(R.id.textView2);
 
+        boolean isCameraFlash = getApplicationContext().getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        s1 = (SwitchCompat) findViewById(switch1);
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if(!isCameraFlash) {
+            showCameraAlert();
+        } else {
+            camera = Camera.open();
+            params = camera.getParameters();
+        }
+
+        flashlightSwitchImg.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked == true) {
-
-                    if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-
-                        if (camera == null) {
-
-                            camera = Camera.open();
-                        }
-
-
-                        param = camera.getParameters();
-                        param.setFlashMode(Parameters.FLASH_MODE_TORCH);
-                        camera.setParameters(param);
-                        camera.startPreview();
-
-                        lichtan = true;
-
-                        Toast.makeText(getApplicationContext(), R.string.light_on, Toast.LENGTH_SHORT).show();
-
-
-                    } else {
-
-                        Toast.makeText(getApplicationContext(), R.string.no_flash, Toast.LENGTH_SHORT).show();
-                    }
-
-
+            public void onClick(View v) {
+                if(isFlashlightOn) {
+                    setFlashlightOff();
+                } else {
+                    setFlashlightOn();
                 }
-
-                if (isChecked == false) {
-
-
-                    lichtaus();
-
-                    Toast.makeText(getApplicationContext(), R.string.light_off, Toast.LENGTH_SHORT).show();
-
-
-                }
-
-
             }
         });
+    }
 
+    private void showCameraAlert() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.no_flash)
+                .setMessage(R.string.camera_flash)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void setFlashlightOn() {
+        params = camera.getParameters();
+        params.setFlashMode(Parameters.FLASH_MODE_TORCH);
+        camera.setParameters(params);
+        camera.startPreview();
+        isFlashlightOn = true;
+        textViewbutton.setText(R.string.light_turn_off);
 
     }
 
-
-    public void lichtaus() {
-
-        if (lichtan == false) {
-
-            camera = Camera.open();
-        }
-
-
-        param = camera.getParameters();
-        param.setFlashMode(Parameters.FLASH_MODE_OFF);
-        camera.setParameters(param);
+    private void setFlashlightOff() {
+        params.setFlashMode(Parameters.FLASH_MODE_OFF);
+        camera.setParameters(params);
         camera.stopPreview();
-
-        lichtan = false;
-
-
+        isFlashlightOn = false;
+        textViewbutton.setText(R.string.lo);
     }
 
-
     @Override
-    protected void onPause() {
+    protected void onStop() {
+        super.onStop();
 
-        if (lichtan == true) {
-            lichtaus();
-
+        if(camera != null) {
             camera.release();
-
+            camera = null;
         }
-        super.onPause();
     }
-
-    @Override
-    protected void onResume() {
-        s1.setChecked(false);
-        super.onResume();
-
-    }
-
 }
-
-
-
-
-
-
-
-
 

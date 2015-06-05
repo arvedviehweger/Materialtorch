@@ -4,5 +4,6 @@
     <string name="lo">Licht einschalten!</string>
     <string name="light_on">Licht eingeschaltet!</string>
     <string name="light_off">Licht ausgeschaltet!</string>
-
+    <string name="light_turn_off">Licht ausschalten!</string>
+    <string name="camera_flash">Der Kamerablitz ist auf diesem Gerät nicht verfügbar!</string>
 </resources>

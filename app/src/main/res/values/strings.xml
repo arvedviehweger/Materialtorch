@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Materialtorch</string>
-    <string name="no_flash">No Flash Light</string>
+    <string name="no_flash">No Flash Light!</string>
     <string name="lo">Turn light on!</string>
     <string name="light_on">Light turned on!</string>
     <string name="light_off">Light turned off!</string>
+    <string name="light_turn_off">Turn light off!</string>
+    <string name="camera_flash">Camera flashlight is not available on this device!</string>
 
 </resources>
