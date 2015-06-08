@@ -24,6 +24,18 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        android:id="@+id/legacy"
+        android:layout_alignParentTop="true" />
+
+    <SurfaceView
+        android:id="@+id/PREVIEW"
+        android:layout_width="1dp"
+        android:layout_height="1dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
